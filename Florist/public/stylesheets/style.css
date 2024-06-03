@@ -1,0 +1,152 @@
+                       /* Navbar */
+ /*FONT Quando*/
+@import url('https://fonts.googleapis.com/css2?family=Quando&display=swap');
+/*FONT Mulish*/
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+.quando-font{
+	font-family: Quando;	
+}
+
+.collapse ul li a{
+  color: black !important;
+}
+
+.dropdown-menu{
+	background-color: #eceae5;
+}
+.dropdown-menu a:hover{
+	background-color: #CC8674 !important;
+}
+/*Card*/
+/*Mulish*/
+hr{
+	width: 10%;
+	border: 1px solid #A95B46;
+}
+.best-deal h1{
+	font-size: 25px;
+	color: #AA5C48;
+}
+
+.card-text{
+	color: #AA5C48 !important;
+	font-family: Mulish;	
+	font-size: 15px !important;
+}
+.card-text s{
+	color: #7E7F86 !important;
+	font-family: Mulish;
+	font-size: 12px !important;
+}
+/* Daftar Produk */
+.second-header{	
+	padding-left: 80px;
+	padding-top: 50px;
+	padding-bottom: 30px;
+	background-color: #fafaf9;
+}
+.second-header p{
+	color: #65616E;
+}
+
+.list-product a, p, i {
+	text-decoration: none;
+	color: #65616E;
+	font-family: Mulish;
+}
+
+.list-product a:hover {
+	color: #A19B8B;
+}
+
+/* Detail */
+.contact{
+	position:fixed;
+	width:150px;
+	height:30px;
+	bottom:20px;
+	left:40px;
+	background-color:#708C9A;
+	color:#FFF;
+	border-radius:20px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+.contact i{
+	color:#FFF;
+}
+
+footer{
+	background-color: #fafaf9;
+	color: #65616E;
+	font-family: Mulish;
+}
+
+table tr td{
+	font-family: Mulish;	
+}
+
+.cart-product{
+	width: 200px;
+}
+.cart-table a{
+	color: #65616E;
+	font-family: Mulish;
+}
+.summary{
+	margin : 10px;
+	padding : 20px;
+	background-color: #C9C9CA;
+}
+.summary h5{
+	font-size: 15px;
+	font-family: Mulish;
+}
+.summary hr{
+	width: 80%;
+}
+.summary button{
+	font-size: 20px;
+	font-family: Mulish;
+}
+.address span{
+	color: #65616E;
+	font-family: Mulish;
+}
+
+.modal-body{
+	font-family: Mulish;
+}
+
+.mulish-font{
+	font-family: Mulish;
+}
+.progress-text{
+	font-family: Mulish;
+	font-size: 13px;
+}
+
+
+
+/* Mobile */
+@media (max-width: 768px) {
+.second-header{	
+	padding-left: 10px;
+}	
+
+/*Card*/
+.cart-product{
+	width: 70px;
+}
+
+.cart-table a{
+	font-size: 10px;
+}
+
+table tr td{
+	font-size: 10px;
+}
+.summary button{
+	font-size: 10px;
+}

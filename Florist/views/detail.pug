@@ -1,0 +1,48 @@
+extends layout
+block content
+    div(class='container-fluid p-0')
+        div(class='second-header')
+            h2 Product List
+            p Where flowers are our inspiration
+
+    div(aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100")
+        div(class="toast d-flex align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true")
+            div(class="toast-body") Successfully added to cart.
+            button(type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="toast" aria-label="Close")
+
+    div(class='container')
+        for flower in results
+            div(class='row')
+                div(class='col-12 col-md-5 pt-2')
+                    img(src='/images/'+flower.image class='card-img-top')
+                
+                div(class='col-12 col-md-7 pt-3 pt-lg-2 ps-lg-5 mulish-font')
+                    h2 #{flower.name} 
+                    //- Cek Harga diskon
+                    if(flower.discount_price != undefined)
+                        s Rp #{flower.price}
+                        p Rp #{flower.discount_price}     
+                    else
+                        p Rp #{flower.price} 
+                    br
+                    p Bouquet ini cocok untuk acara wedding, ulang tahun, wisuda, dll.				
+                    button(type='button' class='btn btn-dark btn-lg' onclick='showSpinner('+flower.id+')')
+                        span(id='spin' class='spinner-border spinner-border-lg d-none' role='status' aria-hidden='true')
+                        span(id='text') Add to Cart	                    
+                    br 
+                    br
+                    p Categories : Hand bouquet
+                    p Ordering  : H-3 
+                        i(class='fa fa-info-circle' data-bs-container='body' data-bs-toggle='tooltip' data-bs-placement='right' title='Sameday delivery call customer service')
+                                    
+                    div(class='accordion accordion-flush pt-3 pb-3' id='accordionFlushExample')
+                        div(class='accordion-item')
+                        h2(class='accordion-header' id='flush-headingOne')
+                            button(class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls='flush-collapseOne') Description
+                        
+                        div(id='flush-collapseOne' class='accordion-collapse collapse' aria-labelledby='flush-headingOne' data-bs-parent='#accordionFlushExample')
+                            div(class='accordion-body') #{flower.description} 
+
+    div(class='contact')
+        i(class='fa fa-phone' aria-hidden='true')
+        span 0811223311

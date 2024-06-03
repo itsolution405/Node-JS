@@ -1,0 +1,59 @@
+extends layout
+block content
+    div(class="container-fluid p-0")
+        div(class="second-header")
+            h2 Cart
+            p Where flowers are our inspiration
+			
+    div(class="container")
+        div(class="row mb-3")
+            div(class="col-12 col-md-8 cart-table")
+                table(class="table table-responsive")
+                    thead
+                        tr
+                            td Product Details
+                            td Quantity
+                            td Price
+                            td Total
+                            td Action
+                    tbody
+                        for product in products
+                            tr
+                                td
+                                    img(class="cart-product" src="/images/"+product.item.image)
+                                td #{product.quantity}
+                                if(product.item.discount_price != undefined)
+                                    td Rp #{product.item.discount_price}
+                                    td Rp #{product.quantity * product.item.discount_price}
+                                else
+                                    td Rp #{product.item.price}
+                                    td Rp #{product.quantity * product.item.price}
+                                td
+                                    a(href="/remove/"+product.item.id)
+                                        i(class="fa fa-trash" aria-hidden="true")
+
+                a(href="/products?category=bouquet") Continue Shopping
+            div(class="col-12 col-md-4")
+                div(class="summary shadow-lg rounded")
+                    table(class="table table-md")
+                        thead
+                            tr
+                                td ORDER SUMMARY
+                                td
+                                td
+                        tbody
+                            tr      
+                                td ITEMS
+                                td #{total}
+                                td Rp #{totalPrice}
+                            tr
+                                td TOTAL COST
+                                td
+                                td Rp #{totalPrice}
+                    div(class="d-grid gap-2")
+                        a(class="btn btn-dark btn-lg" href="/checkout" role="button") CHECKOUT
+					 
+
+    script.
+        let flower = !{JSON.stringify(products)};  
+        console.log(flower);

@@ -1,0 +1,131 @@
+extends layout
+block content
+    div(class="container-fluid p-0")
+        div(class="second-header")
+            h2 Product List
+            p Where flowers are our inspiration
+		
+    div(class="container pt-5")
+        div(class="row")
+            div(class="d-none d-md-inline col-md-3 pt-2 list-product")
+                p Products
+                a(href="/products?category=bouquet") Hand Bouquet
+                br
+                a(href="/products?category=standing") Standing Flowers
+                br
+                a(href="/products?category=special") Special Flowers			
+
+            div(class="col-12 col-md-9")
+                div(class="row" id="product")                                   
+
+        nav(aria-label="Page navigation example" class="mt-5")
+            ul(class="pagination justify-content-center" id="pagination-wrapper")
+                li(class="page-item disabled")
+                    a(class="page-link" href="#" tabindex="-1" aria-disabled="true") Previous
+				    
+                li(class="page-item")
+                    a(class="page-link" href="#") 1	  
+                li(class="page-item disabled")
+                    a(class="page-link" href="#" tabindex="-1" aria-disabled="true") Next
+				    
+    //- Pagination
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")                         
+    script.
+        let flower = !{JSON.stringify(flowers)};      
+        var state = {
+            'querySet': flower,
+
+            'page': 1,
+            'rows': 2,
+            'window': flower.length / 2,
+        }
+
+        showDataProduct();
+
+        function pagination(querySet, page, rows) {
+            var trimStart = (page - 1) * rows
+            var trimEnd = trimStart + rows
+
+            var trimmedData = querySet.slice(trimStart, trimEnd)
+            var pages = Math.round(querySet.length / rows);
+
+            return {
+                'querySet': trimmedData,
+                'pages': pages,
+            }
+        }
+
+        function pageButtons(pages) {
+            var wrapper = document.getElementById('pagination-wrapper')
+            wrapper.innerHTML = ``                       
+
+            var maxLeft = (state.page - Math.floor(state.window / 2))
+            var maxRight = (state.page + Math.floor(state.window / 2))
+            
+            if (maxLeft < 1) {
+                maxLeft = 1
+                maxRight = state.window
+            }
+            if (maxRight > pages) {
+                maxLeft = pages - (state.window - 1)
+                
+                if (maxLeft < 1){
+                    maxLeft = 1
+                }
+                maxRight = pages
+            }            
+            for (var page = maxLeft; page <= maxRight; page++) {
+                wrapper.innerHTML += `<li class="page-item">
+                                        <button value=${page} class="page page-link">${page}</button>
+                                      </li>`
+            }
+            if (state.page != 1) {                
+                wrapper.innerHTML = `<li class="page-item">
+                                        <button value=${1} class="page page-link">First</button>
+                                      </li>` + wrapper.innerHTML
+            }
+            if (state.page != pages) {                
+                wrapper.innerHTML += `<li class="page-item">
+                                        <button value=${pages} class="page page-link">Last</button>
+                                      </li>`
+            }
+
+            $('.page').on('click', function() {
+                $('#product').empty()
+                state.page = Number($(this).val())
+                console.log(state.page)
+                showDataProduct()
+            })
+        }
+
+        function showDataProduct(){
+            var data_state = pagination(state.querySet, state.page, state.rows)
+            var data = data_state.querySet
+            
+            let card_container = $('#product')
+            for (var i = 1 in data) {                            
+                let price;
+                let name = `<div class="col-12 col-lg-4 d-flex justify-content-center mt-2">
+                                <div class="card">
+                                    <img src="/images/${data[i].image}" class="card-img-top">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title"> ${data[i].name}</h5>`
+                //- Pengecekan harga diskon
+                if(data[i].discount_price != undefined){
+                    price = `           <s> Rp ${data[i].price}</s>
+                                        <p class="card-text"> Rp ${data[i].discount_price}</p>`
+                }
+                else
+                    price = `<p class="card-text"> Rp ${data[i].price}</p>`
+
+                let link = `
+                                        
+                                        <a class="stretched-link" href="detail/${data[i].id}"></a>
+                                    </div>
+                                </div>
+                            </div>`
+                let card = name+price+link;
+                card_container.append(card);
+            }       
+            pageButtons(data_state.pages)
+        }   
